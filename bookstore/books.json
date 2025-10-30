@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "name": "The Picture of Dorian Gray",
+        "author": "Oscar Wilde",
+        "isbn": "1234567890",
+        "price": 9.99
+    },
+    {
+        "id": 2,
+        "name": "A Little Life",
+        "author": "Hanya Yanagihara",
+        "isbn": "0987654321",
+        "price": 14.99
+    }
+]
