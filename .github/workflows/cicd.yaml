@@ -25,6 +25,7 @@ jobs:
         # -------------------------
         if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
           echo "✅ Push to main branch - validation passed"
+          exit 0
         elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
           BRANCH_NAME="${{ github.head_ref }}"
           ACTOR="${{ github.actor }}"
