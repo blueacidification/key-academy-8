@@ -18,24 +18,31 @@ jobs:
     steps:
     - name: Check branch name
       run: |
+        # -------------------------
+        # Branch name validation
+        # -------------------------
         if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
           echo "✅ Push to main branch - validation passed"
-          exit 0
-        fi
-    
-        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+        elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
           BRANCH_NAME="${{ github.head_ref }}"
           ACTOR="${{ github.actor }}"
-    
-          # Branch must be exactly deploy-<actor> OR start with deploy-<actor>-
           if [[ ! $BRANCH_NAME =~ ^deploy-$ACTOR(-.*)?$ ]]; then
             echo "❌ Branch name must start with 'deploy-${ACTOR}-' or be exactly 'deploy-${ACTOR}'"
             echo "Current branch: $BRANCH_NAME"
             echo "Example: deploy-${ACTOR}-fix-pipeline"
             exit 1
           fi
-    
           echo "✅ Branch name is valid: $BRANCH_NAME"
+        fi
+    
+        # -------------------------
+        # Check debug mode in run.py
+        # -------------------------
+        if grep -q "app\.run(debug=True, host='0.0.0.0')" run.py; then
+          echo "✅ Debug mode is enabled in run.py"
+        else
+          echo "❌ Debug mode is NOT enabled in run.py"
+          exit 1
         fi
         
   security-scan:
