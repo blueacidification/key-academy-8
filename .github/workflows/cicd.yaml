@@ -26,9 +26,10 @@ jobs:
         if [[ "${{ github.event_name }}" == "pull_request" ]]; then
           BRANCH_NAME="${{ github.head_ref }}"
           ACTOR="${{ github.actor }}"
-          
-          if [[ ! $BRANCH_NAME =~ ^deploy-$ACTOR- ]]; then
-            echo "❌ Branch name must start with 'deploy-${ACTOR}-'"
+    
+          # Branch must be exactly deploy-<actor> OR start with deploy-<actor>-
+          if [[ ! $BRANCH_NAME =~ ^deploy-$ACTOR(-.*)?$ ]]; then
+            echo "❌ Branch name must start with 'deploy-${ACTOR}-' or be exactly 'deploy-${ACTOR}'"
             echo "Current branch: $BRANCH_NAME"
             echo "Example: deploy-${ACTOR}-fix-pipeline"
             exit 1
