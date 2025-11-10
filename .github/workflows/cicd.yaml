@@ -22,14 +22,18 @@ jobs:
           echo "✅ Push to main branch - validation passed"
           exit 0
         fi
+    
         if [[ "${{ github.event_name }}" == "pull_request" ]]; then
           BRANCH_NAME="${{ github.head_ref }}"
-          if [[ ! $BRANCH_NAME =~ ^deploy-.+ ]]; then
-            echo "❌ Branch name must start with 'deploy-'"
+          ACTOR="${{ github.actor }}"
+          
+          if [[ ! $BRANCH_NAME =~ ^deploy-$ACTOR- ]]; then
+            echo "❌ Branch name must start with 'deploy-${ACTOR}-'"
             echo "Current branch: $BRANCH_NAME"
-            echo "Example: deploy-username-fix-pipeline"
+            echo "Example: deploy-${ACTOR}-fix-pipeline"
             exit 1
           fi
+    
           echo "✅ Branch name is valid: $BRANCH_NAME"
         fi
         
@@ -55,7 +59,7 @@ jobs:
   code-quality:
     name: 🔍 Level 3 - Code Quality Check
     runs-on: ubuntu-latest
-    needs: [validate-branch]
+    needs: [security-scan]
 
     steps:
     - uses: actions/checkout@v4
@@ -74,7 +78,7 @@ jobs:
   build-and-push:
     name: 🐳 Level 4 - Build & Push Docker Image  
     runs-on: ubuntu-latest
-    needs: [code-quality, security-scan]
+    needs: [code-quality]
     
     steps:
     - name: Checkout code
