@@ -4,7 +4,7 @@ Welcome to the Bookstore API Challenge! A Flask-based REST API with issues that 
 
 ## 🎯 Challenges
 
-# Need a hint while working on the challenges?
+### Need a hint while working on the challenges?
 Check the Actions tab in this repository. Open your PR’s workflow run, click the step you’re stuck on, and review the logs for detailed guidance.
 Also, take a look at the workflow definition in .github/workflows/cicd.yaml — it shows the exact validation and deployment steps your PR triggers.
 
