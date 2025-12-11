@@ -1,7 +1,7 @@
 import json 
 from flask import jsonify,request,abort
-import flasgger from Swagger
-import  bookstore from app
+from flask_swagger import swagger
+from app import bookstore
 
 swagger = Swagger(app)
 
