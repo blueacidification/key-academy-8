@@ -40,7 +40,7 @@ def get_books():
               price:
                 type: number
     """
-    books=load_books()
+    books= load_books()
     return jsonify(books), 200
 
 
@@ -78,7 +78,6 @@ def add_book(book_id):
     if any(book['id'] == book_id for book in books):
         abort(400, description="Book ID already exists.")
     book_data = request.json
-    testing_variable = book_data['name']
     required_fields = ['name', 'author', 'isbn', 'price']
     if not all(field in book_data for field in required_fields):
         abort(400, description="Missing required fields.")
