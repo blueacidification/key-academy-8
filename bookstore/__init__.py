@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 from bookstore import routes
 _ = routes 
-API_TOKEN = "abc123def456"
+API_TOKEN = os.environ.get('DATABASE_PASSWORD')
