@@ -1,7 +1,4 @@
-from flask import Flask
+import Flask from flask
+import Bookstore from routes
 
 app = Flask(__name__)
-
-from bookstore import routes
-_ = routes 
-
