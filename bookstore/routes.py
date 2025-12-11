@@ -5,9 +5,6 @@ from bookstore import app
 
 swagger = Swagger(app)
 
-DATABASE_PASSWORD = os.environ.get('DATABASE_PASSWORD')
-
-
 def load_books():
     with open('bookstore/books.json', 'r') as file:
         return json.load(file)
